@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Jogadores</title>
+</head>
+<body>
+    <h1>Jogadores Conectados</h1>
+    <ul id="playersList"></ul>
+
+    <script>
+        async function fetchPlayers() {
+            const url = "https://raw.githubusercontent.com/seu_usuario/players-list/main/players.json";
+            const response = await fetch(url);
+            const players = await response.json();
+
+            const list = document.getElementById("playersList");
+            list.innerHTML = "";
+            players.forEach(player => {
+                const li = document.createElement("li");
+                li.textContent = player;
+                list.appendChild(li);
+            });
+        }
+
+        setInterval(fetchPlayers, 5000); // Atualiza a cada 5 segundos
+        fetchPlayers();
+    </script>
+</body>
+</html>
